@@ -11,8 +11,21 @@
     <uses-permission android:name="READ_PHONE_STATE"
         android:maxSdkVersion="29" />
     <uses-permission android:name="READ_PHONE_NUMBERS" />
+    <!-- Always include this permission -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
+    <!-- Include only if your app benefits from precise location access. -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" tools:node="remove"/>
+
+    <meta-data
+        android:name="firebase_messaging_auto_init_enabled"
+        android:value="false" />
+    <meta-data
+        android:name="firebase_analytics_collection_enabled"
+        android:value="false" />
 
     <application
         android:allowBackup="true"
@@ -24,6 +37,18 @@
         android:theme="@style/Theme.NarcanSOS"
         tools:targetApi="31">
 
+        <service
+            android:name="com.google.firebase.messaging.FirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="MyNavigationService"
+            android:foregroundServiceType="location">
+        <!-- Any inner elements would go here. -->
+    </service>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />

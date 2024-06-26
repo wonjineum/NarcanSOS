@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "525309596125",
+    "project_id": "narcansos",
+    "storage_bucket": "narcansos.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:525309596125:android:8109438e68e7db650b2634",
+        "android_client_info": {
+          "package_name": "wonjin.eum.marcansos"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmUSBFtUoVqN7nbmjeYrFOUaMJSAgQMHo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
