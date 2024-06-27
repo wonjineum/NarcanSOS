@@ -22,6 +22,7 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -76,6 +77,7 @@ public class Requesting extends AppCompatActivity {
         todb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                FirebaseApp.initializeApp(Requesting.this);
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                 Map<String, Object> user = new HashMap<>();
                 user.put("first", "Ada");

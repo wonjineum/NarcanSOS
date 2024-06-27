@@ -69,16 +69,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
 
-        Button helpBtn = findViewById(R.id.button_to_request);
-        helpBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent it = new Intent(MapsActivity.this, Requesting.class);
-                startActivity(it);
-            }
-        });
 
         binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -99,7 +90,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //            googleMap.addMarker(options);
 //        }
 
-        FirebaseMessaging.getInstance().setAutoInitEnabled(true);
+ //       FirebaseMessaging.getInstance().setAutoInitEnabled(true);
     }
 
     @Override
@@ -107,18 +98,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng first = new LatLng(36.5972, 121.8944);
+        LatLng first = new LatLng(36.5972, 121.8978);
         mMap.addMarker(new MarkerOptions().position(first).title("First"));
-        LatLng second = new LatLng(36.5972, 121.8944);
+        LatLng second = new LatLng(121.8944, 36.5972 );
         mMap.addMarker(new MarkerOptions().position(second).title("second"));
-        LatLng third = new LatLng(36.5972, 121.8944);
+        LatLng third = new LatLng(121.8879, 36.5984 );
         mMap.addMarker(new MarkerOptions().position(third).title("third"));
 
 
 
-
-    //    latlngs.add(new LatLng(36.5972, 121.8978)); //some latitude and logitude value
-    //    latlngs.add(new LatLng(36.5984, 121.8879));
+/*
+*    1. 36.5972° N, 121.8978° W
+   2. 36.5972° N, 121.8944° W
+   3. 36.5984° N, 121.8879° W
+* */
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(first));
         mMap.setOnMarkerClickListener(this);
