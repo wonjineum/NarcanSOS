@@ -78,7 +78,7 @@ public class Requesting extends AppCompatActivity {
             double latitude = locationTrack.getLatitude();
 
             Toast.makeText(getApplicationContext(), "Longitude:" + Double.toString(longitude) + "\nLatitude:" + Double.toString(latitude), Toast.LENGTH_SHORT).show();
-            edt.setText(Double.toString(longitude)+" , "+Double.toHexString(latitude));
+            edt.setText("location:  \n"+Double.toString(longitude)+" , "+Double.toString(latitude));
         } else {
 
             locationTrack.showSettingsAlert();
