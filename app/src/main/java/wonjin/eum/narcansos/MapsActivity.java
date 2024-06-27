@@ -119,6 +119,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public boolean onMarkerClick(Marker marker){
         Toast.makeText(this, marker.getTitle() + "\n" + marker.getPosition(), Toast.LENGTH_LONG).show();
+        Intent it = new Intent(MapsActivity.this, Supplying.class);
+        String lat = String.valueOf(marker.getPosition().latitude);
+        String log = String.valueOf(marker.getPosition().longitude);
+        it.putExtra("curloclat",lat);
+        it.putExtra("curloclog",log);
+        startActivity(it);
         return true;
 
     }
