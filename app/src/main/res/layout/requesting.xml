@@ -42,31 +42,11 @@
         android:ems="10"
         android:textSize="20dp"
         android:textStyle="bold"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="180dp"
         android:inputType="textPersonName"
         android:text="Location:" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="30dp"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:layout_marginBottom="20dp"
-        android:text="Additional information" />
 
-    <EditText
-        android:id="@+id/editTextPhone1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:inputType="phone"
-        android:layout_marginBottom="80dp"
-        android:text="Enter here:"/>
 
     <TextView
         android:id="@+id/textView3"

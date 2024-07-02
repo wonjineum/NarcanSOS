@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:textSize="25dp"
         android:backgroundTint="#BF5286"
-        android:text="Send my location" />
+        android:text="I need help!" />
 
 
 
