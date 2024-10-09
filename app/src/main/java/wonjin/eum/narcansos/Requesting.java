@@ -127,7 +127,7 @@ public class Requesting extends AppCompatActivity {
         todb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              /*  FirebaseApp.initializeApp(Requesting.this);
+                FirebaseApp.initializeApp(Requesting.this);
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                 Map<String, Object> user = new HashMap<>();
                 user.put("first", "Ada");
@@ -148,7 +148,7 @@ public class Requesting extends AppCompatActivity {
                             public void onFailure(@NonNull Exception e) {
                                 Log.w("bad: ", "Error adding document", e);
                             }
-                        });*/
+                        });
 
             }
         });
