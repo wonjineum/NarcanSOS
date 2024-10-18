@@ -23,12 +23,15 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
+
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,17 +44,22 @@ public class Requesting extends AppCompatActivity {
     private ArrayList permissionsToRequest;
     private ArrayList permissionsRejected = new ArrayList();
     private ArrayList permissions = new ArrayList();
-    LocationTrack locationTrack;
-
-
+    public LocationTrack locationTrack;
+    public double longitude;
+    public double latitude;
+    public FirebaseDatabase mDatabase;
+    public DatabaseReference myref;
+    public DatabaseReference myref1;
+    public  ValueEventListener mValueEventListener;
     private final static int ALL_PERMISSIONS_RESULT = 101;
+    public  Counter c;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.requesting);
         EditText edt = findViewById(R.id.editText);
-
+       // FirebaseApp.initializeApp(Requesting.this);
 
         permissions.add(ACCESS_FINE_LOCATION);
         permissions.add(ACCESS_COARSE_LOCATION);
@@ -74,8 +82,8 @@ public class Requesting extends AppCompatActivity {
         if (locationTrack.canGetLocation()) {
 
 
-            double longitude = locationTrack.getLongitude();
-            double latitude = locationTrack.getLatitude();
+             longitude = locationTrack.getLongitude();
+             latitude = locationTrack.getLatitude();
 
             Toast.makeText(getApplicationContext(), "Longitude:" + Double.toString(longitude) + "\nLatitude:" + Double.toString(latitude), Toast.LENGTH_SHORT).show();
             edt.setText("location:  \n"+Double.toString(longitude)+" , "+Double.toString(latitude));
@@ -90,8 +98,8 @@ public class Requesting extends AppCompatActivity {
         call.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String number = "911";
-                if (ContextCompat.checkSelfPermission(Requesting.this, CALL_PHONE)== PackageManager.PERMISSION_GRANTED) {
+                String number = "89911";
+                if ( ContextCompat.checkSelfPermission(Requesting.this, CALL_PHONE)== PackageManager.PERMISSION_GRANTED) {
                     Intent it = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + number));
                     startActivity(it);
                 } else {
@@ -127,14 +135,55 @@ public class Requesting extends AppCompatActivity {
         todb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseApp.initializeApp(Requesting.this);
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-                Map<String, Object> user = new HashMap<>();
-                user.put("first", "Ada");
-                user.put("last", "Lovelace");
-                user.put("born", 1815);
+
+                 mDatabase = FirebaseDatabase.getInstance("https://narcansos-default-rtdb.firebaseio.com/");
+                 myref = mDatabase.getReference();
+
+                //선언
+
+
+//초기화
+                 mValueEventListener = new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                         c  = postSnapshot.getValue(Counter.class);
+                         Log.e("CNT",String.valueOf( c.getCnt()));
+                            Loc loc = new Loc(longitude,latitude);
+
+                            myref.child("requests").child(String.valueOf(c.getCnt()+1)).child("location").setValue(loc.print());
+
+                            myref.child("cnt").setValue(c.getCnt()+1);
+                        }
+                    }
+
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                };
+                myref1 = mDatabase.getReference("cnt");
+                myref1.addValueEventListener(new ValueEventListener(){
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot postSnapshot: snapshot.getChildren()) {
+                            c  = postSnapshot.getValue(Counter.class);
+                            Log.e("CNT",String.valueOf( c.getCnt()));
+                            Loc loc = new Loc(longitude,latitude);
+
+                            myref.child("requests").child(String.valueOf(c.getCnt()+1)).child("location").setValue(loc.print());
+
+                            myref.child("cnt").setValue(c.getCnt()+1);
+                        }
+                    }//onDataChange
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) { }//onCancelled
+                });//addValueEventListener
+;
 
 // Add a new document with a generated ID
+                /*
                 db.collection("location")
                         .add(user)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -149,6 +198,8 @@ public class Requesting extends AppCompatActivity {
                                 Log.w("bad: ", "Error adding document", e);
                             }
                         });
+
+                 */
 
             }
         });

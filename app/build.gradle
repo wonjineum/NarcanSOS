@@ -46,16 +46,17 @@ dependencies {
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation("com.google.firebase:firebase-storage")
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'com.google.android.gms:play-services-maps:18.1.0'
     implementation 'com.google.android.libraries.places:places:2.6.0'
-    implementation 'com.google.android.gms:play-services-maps:18.2.0'
+    implementation 'com.google.android.gms:play-services-maps:19.0.0'
     implementation(platform("com.google.firebase:firebase-bom:33.1.1"))
     implementation 'com.google.firebase:firebase-messaging:24.0.0'
-    implementation 'com.google.firebase:firebase-messaging-ktx:23.1.2'
     implementation 'com.google.firebase:firebase-firestore:24.5.0'
+    implementation("com.google.gms:google-services:4.3.8")
     testImplementation 'junit:junit:4.13.2'
     implementation("com.google.firebase:firebase-analytics")
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     implementation("com.google.firebase:firebase-inappmessaging-display")
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    implementation(platform("com.google.firebase:firebase-bom:33.4.0"))
+    implementation("com.google.firebase:firebase-database")
 }
